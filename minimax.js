@@ -69,6 +69,7 @@ var choice;
 
         for(var i = 0; i < 9; i++){
             if(i % 2 === 0){
+                console.log("Sua Vez!")
                 var linha = prompt('Digite a linha: ');
                 var coluna = prompt('Digite a coluna: ');
                 this.jogador = 'X';
@@ -87,10 +88,10 @@ var choice;
                     i--;
                 }
             } else {
+                console.log("Vez do Computador!")
                 this.jogador = 'O';
                 minimax(_.cloneDeep(this), 0);
                 this.jogadas[choice[0]][choice[1]] = 'O';
-                console.log(this.jogadas);
                 if(this.hasWiner() === 3){
                     console.log('Fim de Jogo => Vencedor foi o Computador');
                     break;
@@ -103,7 +104,7 @@ var choice;
 
             imprimeJogo(this);
         }
-
+        imprimeJogo(this);
     }
 
     function score(game, depth) {
@@ -131,9 +132,7 @@ var choice;
         	jogadaTemp = availableMoves[i];
             possible_game = _.cloneDeep(jogoTemporario);
             possible_game.jogadas[jogadaTemp[0]][jogadaTemp[1]] = possible_game.jogador;
-            console.log('Jogador: ' + possible_game.jogador)
             possible_game.jogador = possible_game.jogador === 'X' ? 'O' : 'X';
-            console.log('Mudou a vez para: ' + possible_game.jogador)
             scores.push(minimax(possible_game, depth));
             moves.push(jogadaTemp);
         }

@@ -3,6 +3,9 @@
 const prompt = require('prompt-sync')();
 const _ = require('lodash');
 
+var iteracoesComputador = 0;
+var totalIteracoes = 0;
+var jogadasComputador = 0;
 var choice;
 
     function Game () {
@@ -91,7 +94,11 @@ var choice;
                 console.log("Vez do Computador!")
                 this.jogador = 'O';
                 minimax(_.cloneDeep(this), 0);
+                console.log("Após "+iteracoesComputador+" interações o computador determinou uma jogada!")
                 this.jogadas[choice[0]][choice[1]] = 'O';
+                totalIteracoes += iteracoesComputador;
+                jogadasComputador++;
+                iteracoesComputador = 0;
                 if(this.hasWiner() === 3){
                     console.log('Fim de Jogo => Vencedor foi o Computador');
                     break;
@@ -105,6 +112,7 @@ var choice;
             imprimeJogo(this);
         }
         imprimeJogo(this);
+        console.log('O computador teve em média ' + totalIteracoes / jogadasComputador + ' iterações');
     }
 
     function score(game, depth) {
@@ -120,7 +128,7 @@ var choice;
     function minimax(jogoTemporario, depth) {
         if (jogoTemporario.hasWiner())
             return score(jogoTemporario, depth);
-
+        iteracoesComputador++;
         depth++;
 
         var scores = [];

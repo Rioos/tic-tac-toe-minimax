@@ -36,26 +36,36 @@ var choice;
 
         this.hasWiner = function () {
             for(var y  in this.jogadas) {
-                if(this.jogadas[y][0] === this.jogador && this.jogadas[y][1] === this.jogador && this.jogadas[y][2] === this.jogador) {
-                    if(this.jogador === 'X') return 2
+                if(this.jogadas[y][0] === 'X' && this.jogadas[y][1] === 'X' && this.jogadas[y][2] === 'X') {
+                    return 2;
+                }
+                if(this.jogadas[y][0] === 'O' && this.jogadas[y][1] === 'O' && this.jogadas[y][2] === 'O') {
                     return 3;
                 }
             }
 
             for(var x in this.jogadas) {
-                if(this.jogadas[0][x] === this.jogador && this.jogadas[1][x] === this.jogador && this.jogadas[2][x] === this.jogador) {
-                    if(this.jogador === 'X') return 2
+                if(this.jogadas[0][x] === 'X' && this.jogadas[1][x] === 'X' && this.jogadas[2][x] === 'X') {
+                    return 2;
+                }
+                if(this.jogadas[0][x] === 'O' && this.jogadas[1][x] === 'O' && this.jogadas[2][x] === 'O') {
                     return 3;
                 }
             }
 
-            if(this.jogadas[0][0] === this.jogador && this.jogadas[1][1] === this.jogador && this.jogadas[2][2] === this.jogador) {
-                if(this.jogador === 'X') return 2
+            if(this.jogadas[0][0] === 'X' && this.jogadas[1][1] === 'X' && this.jogadas[2][2] === 'X') {
+                return 2;
+            }
+
+            if(this.jogadas[0][0] === 'O' && this.jogadas[1][1] === 'O' && this.jogadas[2][2] === 'O') {
                 return 3;
             }
 
-            if(this.jogadas[2][0] === this.jogador && this.jogadas[1][1] === this.jogador && this.jogadas[0][2] === this.jogador) {
-                if(this.jogador === 'X') return 2
+            if(this.jogadas[2][0] === 'X' && this.jogadas[1][1] === 'X' && this.jogadas[0][2] === 'X') {
+                return 2;
+            }
+
+            if(this.jogadas[2][0] === 'O' && this.jogadas[1][1] === 'O' && this.jogadas[0][2] === 'O') {
                 return 3;
             }
 
@@ -117,17 +127,23 @@ var choice;
 
     function score(game, depth) {
         var score = game.hasWiner();
-        if (score === 1)
+        if (score === 1){
             return 0;
-        else if (score === 2)
+        }
+        else if (score === 2){
             return depth-10;
-        else if (score === 3)
+
+        }
+        else if (score === 3){
             return 10-depth;
+
+        }
     }
 
     function minimax(jogoTemporario, depth) {
-        if (jogoTemporario.hasWiner())
+        if (jogoTemporario.hasWiner() !== 0)
             return score(jogoTemporario, depth);
+
         iteracoesComputador++;
         depth++;
 
@@ -147,7 +163,7 @@ var choice;
 
         var max_score, max_score_index, min_score, min_score_index;
 
-        if (jogoTemporario.jogador === "O") {
+        if (possible_game.jogador === "X") {
             max_score = Math.max.apply(Math, scores);
             max_score_index = scores.indexOf(max_score);
             choice = moves[max_score_index];
